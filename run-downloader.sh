@@ -6,5 +6,5 @@ while true
 do
     date
     cat .std.out | grep '^http' | sort -r | uniq > .urls; aria2c -i .urls -c -d newpic
-    sleep 1
+    sleep 60
 done

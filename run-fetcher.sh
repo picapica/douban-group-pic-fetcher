@@ -5,5 +5,5 @@ while true
 do
     date
     ruby douban-group.rb
-    sleep 3
+    sleep 31
 done >> .std.out
