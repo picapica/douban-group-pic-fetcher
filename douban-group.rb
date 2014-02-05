@@ -40,7 +40,11 @@ items.each_with_index do |item, index|
   author_url = elements[1].css("a").first['href']
   author_id = author_url.scan($re_author_id)[0][0]
 
-  post_page = Nokogiri::HTML(http_open(post_url))
+  begin
+    post_page = Nokogiri::HTML(http_open(post_url))
+  rescue
+    next
+  end
 
   post_doc = post_page.css(".topic-content .topic-doc h3 span")
   if post_time = post_doc.last.content
