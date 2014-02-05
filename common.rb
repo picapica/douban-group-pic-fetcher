@@ -21,7 +21,7 @@ class Post
 
   property :post_id, String, :required => true
   property :title, String, :required => true
-  property :post_time, Time
+  property :post_time, DateTime
 
   property :author, String, :required => true
   property :author_id, String, :required => true
