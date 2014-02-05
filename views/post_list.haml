@@ -1,13 +1,14 @@
 -# coding: UTF-8
 
-%table.table
+%table.table.table-striped.table-hover.table-bordered.table-condensed
   -@posts.each do |post|
     %tr
+      %td{:nowrap => true}
+        = post.post_time.strftime("%Y%m%d-%H:%M:%S")
       %td
-        = post.post_time
-      %td
-        %a{:href => "/post/#{post.post_id}/#{post.post_hash}"}
+        %a{:href => "/post/#{post.post_id}##{post.post_hash}", :rel => "#overlay"}
           = post.title
+          = post.pictures.nil? || "[#{post.pictures.count}]"
       %td
         = post.author
       %td
@@ -17,3 +18,44 @@
       %td
         %a{:href => "http://www.douban.com/group/topic/#{post.post_id}/"}
           %img{:src => 'http://img3.douban.com/favicon.ico'}
+
+.apple_overlay#overlay
+  .contentWrap
+
+:css
+  /* use a semi-transparent image for the overlay */
+  #overlay {
+    background-image:url(/img/transparent.png);
+    background:white;
+    height:100%;
+    //display:none;
+    z-index:100;
+  }
+  /* container for external content. uses vertical scrollbar, if needed */
+  div.contentWrap {
+    height:90%;
+    overflow-y:auto;
+  }
+
+%script{:type => "text/javascript", :src  => "/js/jquery.tools.min.js"}
+:javascript
+  $(function() {
+      // if the function argument is given to overlay,
+      // it is assumed to be the onBeforeLoad event listener
+      $("a[rel]").overlay({
+          mask: 'darkgray',
+          effect: 'apple',
+          onBeforeLoad: function() {
+              // grab wrapper element inside content
+              var wrap = this.getOverlay().find(".contentWrap");
+              // load the page specified in the trigger
+              wrap.load(this.getTrigger().attr("href"));
+          },
+          onLoad: function () {
+              $("body").css("overflow", "hidden");
+          },
+          onClose: function () {
+              $("body").css("overflow", "");
+          }
+      });
+  });

@@ -1,15 +1,24 @@
 -# coding: UTF-8
 
-%h3
-  = @post.title
+.info
+  = @posts.count
 
-%p
-  = @post.author
+-@posts.each do |post|
+  .post{:id => post.post_hash}
+    %h3
+      = post.title
 
-%p
-  = @post.content
+    %b
+      = post.author
 
-%ul
-  -@post.pictures.each do |pic|
-    %li
-      %img{:src => "/newpic/#{pic.url.split('?', 2)[0].split('/')[-1]}"}
+    %i
+      = post.post_hash
+
+    %p
+      = post.content
+
+    %ul
+      - post.pictures.each do |pic|
+        %li
+          %img{:src => "/newpic/#{pic.url.split('?', 2)[0].split('/')[-1]}"}
+    %hr

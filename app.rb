@@ -9,13 +9,13 @@ class AppController < Sinatra::Base
   }
   
   get '/' do
-    @posts = Post.all(:order => [:post_time.asc])
+    @posts = Post.all(:order => [:post_time.desc])
     
     haml :post_list
   end
   
-  get '/post/:post_id/:post_hash' do
-    @post = Post.first(:post_id => params[:post_id], :post_hash => params[:post_hash])
+  get '/post/:post_id' do
+    @posts = Post.all(:post_id => params[:post_id], :order => [:post_time.desc])
     
     haml :post_show
   end
