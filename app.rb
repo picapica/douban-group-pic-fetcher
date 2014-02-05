@@ -7,16 +7,25 @@ class AppController < Sinatra::Base
   configure {
     set :server, :puma
   }
-  
+
   get '/' do
-    @posts = Post.all(:order => [:post_time.desc])
-    
+    @total_posts_count = Post.count
+    @per_page    = (params[:per_page] || 50).to_i
+    @total_pages_count = (@total_posts_count - 1) / @per_page + 1
+
+    page = (params[:page] || 1).to_i
+    @page = (page - 1) % @total_pages_count + 1
+    start = (@page - 1) * @per_page
+
+    posts = Post.all(:order => [:post_time.desc])
+    @posts = posts[start, @per_page]
+
     haml :post_list
   end
-  
+
   get '/post/:post_id' do
     @posts = Post.all(:post_id => params[:post_id], :order => [:post_time.desc])
-    
+
     haml :post_show
   end
 
@@ -24,7 +33,7 @@ class AppController < Sinatra::Base
     post = Post.first(:post_id => params[:post_id], :post_hash => params[:post_hash])
 
     mail = Mail.new do
-      from    'simplax@gmail.com'
+      from    'jiecao1024@gmail.com'
       to      'jiecaosuileyidi@googlegroups.com'
       message_id "%s.%s@1024.mib.cc" % [post.post_id, post.post_hash]
       subject "[douban:%s] %s - %s%s" % ['xsz', post.author, post.title, post.pictures.nil? ? '' : "[#{post.pictures.count}]" ]

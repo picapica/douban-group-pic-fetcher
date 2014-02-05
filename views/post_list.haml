@@ -1,23 +1,68 @@
 -# coding: UTF-8
 
+.pagination.pagination-centered
+  %ul
+    -if @page <= 1
+      %li
+        %a &laquo;
+    -else
+      %li.disabled
+        %a{:href => "?page=#{@page - 1}"} &laquo;
+
+    -(([@page - 9, 1].max)..([@page + 9, @total_pages_count].min)).each do |p|
+      -if p == @page
+        %li.active
+          %a
+            = p
+      -else
+        %li
+          %a{:href => "?page=#{p}"}
+            = p
+
+    -if @page >= @total_pages_count
+      %li.disabled
+        %a &raquo;
+    -else
+      %li
+        %a{:href => "?page=#{@page + 1}"} &raquo;
+
+= @page
+of
+= @total_pages_count
+(total
+= @total_posts_count
+)
+
 %table.table.table-striped.table-hover.table-bordered.table-condensed
   -@posts.each do |post|
     %tr
       %td{:nowrap => true}
         = post.post_time.strftime("%Y%m%d-%H:%M:%S")
+      %td{:nowrap => true}
+        = post.author
       %td
         %a{:href => "/post/#{post.post_id}##{post.post_hash}", :rel => "#overlay"}
           = post.title
           = post.pictures.nil? || "[#{post.pictures.count}]"
-      %td
-        = post.author
-      %td
-        = post.post_id
-      %td
-        = post.post_hash
-      %td
+      %td{:nowrap => true}
+        %q{:title => post.post_hash}
+          = post.post_id
         %a{:href => "http://www.douban.com/group/topic/#{post.post_id}/"}
           %img{:src => 'http://img3.douban.com/favicon.ico'}
+
+.pager
+  -if @page <= 1
+    %li.previous.disabled
+      %a &laquo;
+  -else
+    %li.previous
+      %a{:href => "?page=#{@page - 1}"} &laquo;
+  -if @page >= @total_pages_count
+    %li.next.disabled
+      %a &raquo;
+  -else
+    %li.next
+      %a{:href => "?page=#{@page + 1}"} &raquo;
 
 .apple_overlay#overlay
   .contentWrap
