@@ -1,0 +1,19 @@
+-# coding: UTF-8
+
+%table.table
+  -@posts.each do |post|
+    %tr
+      %td
+        = post.post_time
+      %td
+        %a{:href => "/post/#{post.post_id}/#{post.post_hash}"}
+          = post.title
+      %td
+        = post.author
+      %td
+        = post.post_id
+      %td
+        = post.post_hash
+      %td
+        %a{:href => "http://www.douban.com/group/topic/#{post.post_id}/"}
+          %img{:src => 'http://img3.douban.com/favicon.ico'}

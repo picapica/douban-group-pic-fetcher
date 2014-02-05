@@ -10,3 +10,5 @@ gem 'sinatra', :require => 'sinatra/base'
 gem 'async_sinatra', :git => 'git://github.com/raggi/async_sinatra.git', :require => 'sinatra/async'
 gem 'haml'
 gem 'puma'
+
+gem 'mail'

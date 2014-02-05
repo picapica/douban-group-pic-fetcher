@@ -1,0 +1,15 @@
+-# coding: UTF-8
+
+%h3
+  = @post.title
+
+%p
+  = @post.author
+
+%p
+  = @post.content
+
+%ul
+  -@post.pictures.each do |pic|
+    %li
+      %img{:src => "/newpic/#{pic.url.split('?', 2)[0].split('/')[-1]}"}

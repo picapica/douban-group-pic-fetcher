@@ -40,6 +40,8 @@ items.each_with_index do |item, index|
   author_url = elements[1].css("a").first['href']
   author_id = author_url.scan($re_author_id)[0][0]
 
+  next if dm_post = Post.first({:post_id => post_id, :author_id => author_id, :title => title})
+
   begin
     post_page = Nokogiri::HTML(http_open(post_url))
   rescue
@@ -58,7 +60,7 @@ items.each_with_index do |item, index|
 
   post_hash = Digest::MD5.hexdigest(title + post_text)
 
-  next if dm_post = Post.first({:post_id => post_id, :author_id => author_id, :post_hash => post_hash})
+  #next if dm_post = Post.first({:post_id => post_id, :author_id => author_id, :post_hash => post_hash})
 
   dm_post = Post.create(:post_id => post_id, :author_id => author_id, :post_hash => post_hash, :title => title, :post_time => post_time, :author => author, :content => post_text)
   post_images.each do |img_url|
