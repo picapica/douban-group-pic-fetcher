@@ -57,3 +57,11 @@ end
 DataMapper.finalize
 DataMapper.auto_upgrade!
 # === end DataMapper === #
+
+if File.exists?('mail.yml')
+  options = YAML.load_file('mail.yml')
+
+  Mail.defaults do
+    delivery_method :smtp, options
+  end
+end

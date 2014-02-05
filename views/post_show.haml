@@ -10,9 +10,9 @@
 
     %b
       = post.author
-
     %i
       = post.post_hash
+    %a{:href => "/post/#{post.post_id}/#{post.post_hash}/mail", :target => '_blank'} send
 
     %p
       = post.content

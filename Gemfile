@@ -7,7 +7,7 @@ gem 'nokogiri'
 
 gem 'rack'
 gem 'sinatra', :require => 'sinatra/base'
-gem 'async_sinatra', :git => 'git://github.com/raggi/async_sinatra.git', :require => 'sinatra/async'
+gem 'async_sinatra', :require => 'sinatra/async'
 gem 'haml'
 gem 'puma'
 
