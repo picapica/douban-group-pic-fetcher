@@ -49,6 +49,6 @@ class AppController < Sinatra::Base
     mail.header['In-Reply-To'] = "<%s@1024.mib.cc>" % params[:post_id]
     mail.deliver
 
-    "<a href='#' onclick='window.close();return false;'>已发送，OK</a>"
+    "<a href='#' onclick='window.close();return false;'>#{post.author} #{post.title} 已发送，OK</a>"
   end
 end
