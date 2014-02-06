@@ -31,13 +31,14 @@ class AppController < Sinatra::Base
 
   get '/post/:post_id/:post_hash/mail' do
     post = Post.first(:post_id => params[:post_id], :post_hash => params[:post_hash])
+    post_content = "#{post.content} \r\n #{post.post_url}"
 
     mail = Mail.new do
       from    'jiecao1024@gmail.com'
       to      'jiecaosuileyidi@googlegroups.com'
       message_id "%s.%s@1024.mib.cc" % [post.post_id, post.post_hash]
       subject "[douban:%s] %s - %s%s" % ['xsz', post.author, post.title, post.pictures.nil? ? '' : "[#{post.pictures.count}]" ]
-      body    post.content
+      body    post_content
       post.pictures.each do |pic|
         file = pic.url.split('?', 2)[0].split('/')[-1]
         add_file :filename => file, :content => File.read("./newpic/#{file}")

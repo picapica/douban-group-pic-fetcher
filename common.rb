@@ -36,6 +36,10 @@ class Post
   def to_s
     "[%s] %s %s %-40s\t- %s:%s" % [self.post_time, self.post_id, self.post_hash, self.title[0..20], self.author_id, self.author]
   end
+
+  def post_url
+    "http://www.douban.com/group/topic/#{self.post_id}/"
+  end
 end
 
 class Picture
