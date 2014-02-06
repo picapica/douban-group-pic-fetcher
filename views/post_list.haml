@@ -41,14 +41,13 @@ of
       %td{:nowrap => true}
         = post.author
       %td
+        %a{:href => "http://www.douban.com/group/topic/#{post.post_id}/"}
+          %img{:src => 'http://img3.douban.com/favicon.ico'}
+        %q{:title => post.post_hash}
+          = post.post_id
         %a{:href => "/post/#{post.post_id}##{post.post_hash}", :rel => "#overlay"}
           = post.title
           = post.pictures.nil? || "[#{post.pictures.count}]"
-      %td{:nowrap => true}
-        %q{:title => post.post_hash}
-          = post.post_id
-        %a{:href => "http://www.douban.com/group/topic/#{post.post_id}/"}
-          %img{:src => 'http://img3.douban.com/favicon.ico'}
 
 .pager
   -if @page <= 1
