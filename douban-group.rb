@@ -18,7 +18,7 @@ start = 0
 if ARGV.size > 0
   start = ARGV[0].to_i
 end
-group_url = "http://www.douban.com/group/Xsz/discussion?start=#{start}"
+group_url = "http://www.douban.com/group/Xsz/discussion?start=#{start}&limit=60"
 page = Nokogiri::HTML(http_open(group_url))
 
 items = page.css("table.olt > tr")
