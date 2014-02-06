@@ -17,14 +17,14 @@ class AppController < Sinatra::Base
     @page = (page - 1) % @total_pages_count + 1
     start = (@page - 1) * @per_page
 
-    posts = Post.all(:order => [:post_time.desc])
+    posts = Post.all(:order => [:post_id.desc, :created_at.desc])
     @posts = posts[start, @per_page]
 
     haml :post_list
   end
 
   get '/post/:post_id' do
-    @posts = Post.all(:post_id => params[:post_id], :order => [:post_time.desc])
+    @posts = Post.all(:post_id => params[:post_id], :order => [:created_at.desc])
 
     haml :post_show
   end
