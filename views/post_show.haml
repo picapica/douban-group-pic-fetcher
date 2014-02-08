@@ -5,20 +5,20 @@
 
 -@posts.each do |post|
   .post{:id => post.post_hash}
-    %h3
-      = post.title
+    .row
+      %h3
+        = post.title
 
-    %b
-      = post.author
-    %i
-      = post.post_hash
-    %a{:href => "/post/#{post.post_id}/#{post.post_hash}/mail", :target => '_blank'} send
+      %b
+        = post.author
+      %i
+        = post.post_hash
+      %a{:href => "/post/#{post.post_id}/#{post.post_hash}/mail", :target => '_blank'} send
 
-    %p
+    .row
       = post.content
 
-    %ul
+    .row
       - post.pictures.each do |pic|
-        %li
-          %img{:src => "/newpic/#{pic.url.split('?', 2)[0].split('/')[-1]}"}
+        %img.span2.thumbnail{:'data-src' => "holder.js/300x200", :src => "/newpic/#{pic.url.split('?', 2)[0].split('/')[-1]}"}
     %hr
