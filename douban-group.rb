@@ -55,7 +55,7 @@ items.each_with_index do |item, index|
 
   post_content = post_page.css(".topic-content .topic-doc .topic-content").first
 
-  post_images = post_page.css(".topic-figure.cc img").map{|img| img['src']}
+  post_images = post_page.css(".topic-figure img").map{|img| img['src']}
   post_text = post_content.content.strip
 
   post_hash = Digest::MD5.hexdigest(title + post_text)
